@@ -1,0 +1,90 @@
+elasticsearch-os:
+  enabled: true
+  namespace: "elasticsearch"
+  replicas: 1
+  storageClass: "vsphere-csi-retain"
+  image: harbor1.akillisebeke.lab/scada-botas/elasticsearch
+  imageTag: 7.11.1
+
+jasperreports-os:
+  enabled: true
+  namespace: "jasperreport"
+  replicas: 1
+  root_url: apps.ocp-dev.botas.lab
+  image:
+    registry: harbor1.akillisebeke.lab
+    repository: scada-botas/jasperreports
+    tag: 0.8.6
+
+keycloak-os:
+  enabled: true
+  namespace: "botas-isletme"
+  replicas: 1
+  rabbitHost: 10.6.50.114
+  host: botas-isletme.apps.ocp-dev.botas.lab
+  postgresql:
+    enabled: true
+    image:
+      registry: "harbor1.akillisebeke.lab"
+      repository: "scada-botas/keycloak/postgresql"
+      tag: "10.15.0"
+  image:
+    repository: harbor1.akillisebeke.lab/scada-botas/keycloak
+    tag: 0.9.8
+
+
+postgresql:
+  enabled: true
+  global:
+    imageRegistry: "harbor1.akillisebeke.lab"
+  namespace: "postgresql"
+  replicas: 1
+  image:
+    registry: harbor1.akillisebeke.lab
+    repository: scada-botas/postgresql
+    tag: 13.2
+  defaultDBs: "alarm_db,dnp_db,event_db,function_db,control_db,measurement_db,nfs_db,opc_db,modbus_db"
+
+prestodb-os:
+  enabled: true
+  namespace: "prestodb"
+  storageClass: "vsphere-csi-retain"
+  worker:
+    count: 2
+
+rabbitmq-os:
+  enabled: true
+  namespace: "rabbitmq"
+  storageClass: "vsphere-csi-retain"
+  replicas: 2
+  nodeName: 10.6.50.114
+  image: harbor1.akillisebeke.lab/scada-botas/rabbitmq
+  tag: 3.8.14-management
+
+redis-os:
+  enabled: true
+  global:
+    imageRegistry: "harbor1.akillisebeke.lab"
+    storageClass: "vsphere-csi-retain"
+  namespace: "redis"
+  replicas: 2
+  clusterDomain: apps.ocp.-dev.botas.lab
+  image:
+    registry: "harbor1.akillisebeke.lab"
+    repository: "scada-botas/redis"
+    tag: "0.9.8"
+
+
+zookeeper-os:
+  enabled: true
+  namespace: "botas-isletme"
+  zookeeper:
+    image:
+      repository: harbor1.akillisebeke.lab/scada-botas/zookeeper
+      tag: 0.9.8
+  storageClass: "vsphere-csi-retain"
+  replicaCount: 1
+
+
+
+

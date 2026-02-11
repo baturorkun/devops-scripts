@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynginx
+  labels:
+      app: mynginx
+spec:
+  selector:
+    matchLabels:
+      app: mynginx
+  template:
+    metadata:
+      labels:
+         app: mynginx
+    spec:
+      containers:
+        - name: mynginx
+          image: public.ecr.aws/y6a3u3z2/mynginx:latest
+          ports:
+            - containerPort: 8080
+              name: "http-server"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mynginx
+  labels:
+    app: mynginx
+spec:
+  ports:
+    - port: 8080
+      name: web
+  clusterIP: None
+  selector:
+    app: mynginx

@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sonar-postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sonar-postgres
+        tier: backend
+    spec:
+      containers:
+        - name: sonar-postgres
+          image: postgres:9.6
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: 94509450
+          ports:
+            - name: postgresport
+              containerPort: 5432
+          volumeMounts:
+            - name: sonar-postgres-data
+              mountPath: /var/lib/postgresql/data:z
+      volumes:
+        - name: sonar-postgres-data
+          persistentVolumeClaim:
+            claimName: sonar-postgres
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonar-postgres
+spec:
+  volumeName: pvc-postgre
+  storageClassName: ovirt-csi-sc
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Mi

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-test
+  labels:
+    name: createvolume
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      restartPolicy: Always
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: webroot
+  volumes:
+    - name: webroot
+      persistentVolumeClaim:
+        claimName: myclaim

@@ -1,0 +1,38 @@
+
+NAME: my-timescaledb
+LAST DEPLOYED: Fri Apr 30 05:20:28 2021
+NAMESPACE: rmx
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+# This file and its contents are licensed under the Apache License 2.0.
+# Please see the included NOTICE for copyright information and LICENSE for a copy of the license.
+
+TimescaleDB can be accessed via port 5432 on the following DNS name from within your cluster:
+my-timescaledb.rmx.svc.cluster.local
+
+#!/bin/bash
+To get your password for superuser run:
+
+    # superuser password
+    #PGPASSWORD_SUPERUSER=$(kubectl get secret --namespace rmx my-timescaledb-data -o jsonpath="{.data.password-superuser}" | base64 --decode)
+    PGPASSWORD_SUPERUSER="admin"
+    # admin password
+    #PGPASSWORD_ADMIN=$(kubectl get secret --namespace rmx my-timescaledb -o jsonpath="{.data.password-admin}" | base64 --decode)
+    PGPASSWORD_ADMIN="admin"
+
+To connect to your database:
+
+1. Run a postgres pod and connect using the psql cli:
+    # login as superuser
+    kubectl run -i --tty --rm psql --image=postgres \
+      --env "PGPASSWORD=$PGPASSWORD_SUPERUSER" \
+      --command -- psql -U postgres \
+      -h my-timescaledb.rmx.svc.cluster.local postgres
+
+    # login as admin
+    kubectl run -i -tty --rm psql --image=postgres \
+      --env "PGPASSWORD=$PGPASSWORD_ADMIN" \
+      --command -- psql -U admin \
+      -h my-timescaledb.rmx.svc.cluster.local postgres

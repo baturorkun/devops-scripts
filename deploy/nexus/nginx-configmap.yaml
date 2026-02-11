@@ -1,0 +1,68 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-proxy-conf
+data:
+  nginx.conf: |-
+    user  nginx;
+    worker_processes 1;
+
+    error_log  /var/log/nginx/error.log warn;
+    pid        /var/run/nginx.pid;
+
+    events {
+        worker_connections  1024;
+        multi_accept on;
+    }
+
+    http {
+       proxy_send_timeout 120;
+       proxy_read_timeout 300;
+       proxy_buffering off;
+       keepalive_timeout 50;
+       tcp_nodelay on;
+
+       client_max_body_size 1G;
+
+      server {
+        listen 80;
+        server_name nexus3;
+
+       location ~ /v2/repository/docker-hosted/(.*) {
+              proxy_pass http://nexus3:30822;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_read_timeout 900;
+          }
+
+           location ~ /v2/repository/docker-group/(.*) {
+              proxy_pass http://nexus3:8083;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_read_timeout 900;
+          }
+
+          location /v2/ {
+              proxy_pass http://nexus3:8083;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_read_timeout 900;
+          }
+
+          location / {
+              proxy_pass http://nexus3:8081;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_read_timeout 900;
+          }
+
+      }
+    }

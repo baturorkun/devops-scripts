@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfs-server
+  template:
+    metadata:
+      labels:
+        app: nfs-server
+    spec:
+      securityContext:
+        privileged: true
+        capabilities:
+          add: [ "SYS_ADMIN", "SETPCAP" ]
+      containers:
+        - name: nfs-server
+          image: cpuguy83/nfs-server
+          args:
+            # Pass the paths to share to the Docker image
+            - /exports
+          volumeMounts:
+            - name: nfs-storage
+              mountPath: /exports
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-server-data

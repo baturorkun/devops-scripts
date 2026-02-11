@@ -1,0 +1,47 @@
+nodes:
+  - address: 10.10.10.1
+    user: rke
+    role: [controlplane,etcd]
+  - address: 10.10.10.2
+    user: rke
+    role: [controlplane,etcd]
+  - address: 10.10.10.3
+    user: rke
+    role: [controlplane,etcd]
+  - address: 10.10.10.4
+    user: rke
+    role: [worker]
+  - address: 10.10.10.5
+    user: rke
+    role: [worker]
+  - address: 10.10.10.6
+    user: rke
+    role: [worker]
+
+ssh_key_path: ~/.ssh/id_rsa
+cluster_name: k8s-kubernetesturkey
+
+services:
+  etcd:
+    backup_config:
+      enabled: true
+      interval_hours: 12
+      retention: 6
+      safe_timestamp: false
+    creation: 12h
+    retention: 72h
+    snapshot: true
+  kube-api:
+    service_cluster_ip_range: 10.43.0.0/16
+  kube-controller:
+    cluster_cidr: 10.42.0.0/16
+    service_cluster_ip_range: 10.43.0.0/16
+  kubelet:
+    cluster_domain: k8s.kubernetesturkey.local
+    cluster_dns_server: 10.43.0.10
+    generate_serving_certificate: false
+
+network:
+  plugin: flannel
+ingress:
+  provider: nginx

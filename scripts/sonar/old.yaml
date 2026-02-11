@@ -1,0 +1,65 @@
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpy6666" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="24aea3fc86246f8d0fd378f97c4d3e3dc7854f88" \
+    -v "C:\git\7799_LHD:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpy7749" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="e78d805ba1353bbe211bd5566140b846c7d79b01" \
+    -v "C:\git\7799_LHD:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpy7772" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="898a7c253863ef91fbbbbe77bc2a9929acb0dd8e" \
+    -v "C:\git\7799_LHD:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpy7774" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="71179bd07d40ec83c79500036c72be42de852228" \
+    -v "C:\git\7799_LHD:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpy7775" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="41a7b027869927a3de8fdffe35dcc7572d32b1ee" \
+    -v "C:\git\7799_LHD:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+
+docker run \
+    --rm \
+    -v "C:\git\sonar-cache\gpymain7799:/opt/sonar-scanner/.sonar/cache" \
+    -e SONAR_PROJECT_KEY="gpymain" \
+    -e SONAR_HOST_URL="http://sonarqube.local.net" \
+    -e SONAR_LOGIN="537580a17a9d8d52a35005399714038add452a58" \
+    -v "C:\git\gpy_main_7799:/usr/src" \
+    sonarsource/sonar-scanner-cli
+
+------------------------------
+			docker run \
+				--rm \
+				-v "C:\git\sonar-cache\7799:/opt/sonar-scanner/.sonar/cache" \
+				-e SONAR_PROJECT_KEY="gpy7799" \
+				-e SONAR_HOST_URL="http://sonarqube.local.net" \
+				-e SONAR_LOGIN="893b8ae03b24f1b7bf5006a90e9355dcb3292ed0" \
+				-v "C:\git\7799_LHD:/usr/src" \
+				sonarsource/sonar-scanner-cli

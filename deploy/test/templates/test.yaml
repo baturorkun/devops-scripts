@@ -1,0 +1,8 @@
+{{- $initDBFilesGlob := "test1.sh" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "test1"
+  namespace: batur
+data:
+  {{ (.Files.Glob ''$initDBFilesGlob'').AsConfig | indent 2 }}

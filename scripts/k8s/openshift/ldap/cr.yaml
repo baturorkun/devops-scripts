@@ -1,0 +1,24 @@
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+    - name: ldapidp
+      mappingMethod: claim
+      type: LDAP
+      ldap:
+        attributes:
+          id:
+            - dn
+          email:
+            - mail
+          name:
+            - cn
+          preferredUsername:
+            - sAMAccountName
+        bindDN: "cn=LDAP Viewer,cn=Managed Service Accounts,dc=local,dc=net"
+        bindPassword:
+          name: ldap-secret
+        insecure: true
+        url: "ldap://dc1.mydomain.com/cn=rocketchat,ou=RocketChat,ou=Groups,dc=local,dc=net"

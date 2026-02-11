@@ -1,0 +1,14 @@
+oc get route --all-namespaces
+
+oc get endpoints
+
+oc get hostsubnet
+
+oc get pods --all-namespaces | grep etcd
+
+
+oc run <name of pod> --image = <name of the image from registry>
+
+
+#  get api cert
+kubectl get secret router-certs -o jsonpath="{['data']['tls\.crt']}" -n openshift-ingress

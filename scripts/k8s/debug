@@ -1,0 +1,8 @@
+
+oc debug node/<master_node_name>
+
+
+nginx error
+
+https://access.redhat.com/solutions/3419001
+

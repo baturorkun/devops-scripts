@@ -1,0 +1,21 @@
+# Example yaml file
+
+postgres:
+  enabled: true
+  image: "timescale/timescaledb-postgis:latest-pg13"
+
+openmap:
+  enabled: true
+  image: "klokantech/openmaptiles-server:1.10"
+
+zookeeper:
+  enabled: false
+  image: "digitalwonderland/zookeeper:latest"
+
+mongodb:
+  enabled: true
+  image: "mongo:4.4.6-bionic"
+
+kafka:
+  enabled: false
+  image: "wurstmeister/kafka:2.13-2.8.1"

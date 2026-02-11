@@ -1,0 +1,80 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: rmx-services-template
+objects:
+  - kind: DeploymentConfig
+    apiVersion: apps.openshift.io/v1
+    metadata:
+      name: ${APP}
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: ${APP}
+        spec:
+          containers:
+          - image: nexus.mydomain.com/${APP}:${TAG}
+            imagePullPolicy: Always
+            name: ${APP}
+            env:
+              - name: myproject_REDIS_HOSTNAME
+                value: "redis-cluster"
+              - name: myproject_SPRING_DATA_MONGODB_URI
+                value: "mongodb://admin:94509450@mongo-service:27017/myproject"
+              - name: myproject_SPRING_DATASOURCE_URL
+                value: "jdbc:postgresql://postgres:5432/postgres"
+              - name: myproject_WEB_JWT_PUBLICKEY
+                value: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgWJlGuAxgXXWV7tqyYME9Q0OXqeioB2qQcUYWBWBG+Xv+XCn7lPCG3D9HoYa23KXWE0OSbHPkHI/AZlUaZ7pCog9AhqSroV0D9B+vUcf/YqkuXQ6sw2pGwdoippY55DzCXHNJKBYCGlEduJfEru9hNTfjYj9XPE78qGk4DdCnxcARKH90HhXc4z4bz1JehhXnKRBk5x1OSTwOpvKWXTZ9wCHDhYWvIW4svoN/G4tvcngLGbNY9u8OzmUS1A1qmVDY1vqKmlm1Gr7ZaxvcNMjil0xV/g3DFTR31TCQfdJGRaIU8nvteaIQmShv3/ADQc2TwTTiPb8IbUztO1iltZv8wIDAQAB"
+              - name: myproject_REDIS_PORT
+                value: "6379"
+              - name: myproject_WEB_CORS_ORIGIN
+                value: "*"
+              - name: myproject_PROJECT_NAME
+                value: "myproject"
+              - name: myproject_SPRING_DATASOURCE_USERNAME
+                value: "postgres"
+              - name: myproject_SPRING_DATASOURCE_PASSWORD
+                value: "94509450"
+              - name: myproject_SPRING_KAFKA_BOOTSTRAP_SERVERS
+                value: "kafka-service:9092"
+      triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+          - ${APP}
+          from:
+            kind: ImageStreamTag
+            name: ${APP}:${TAG}
+        type: ImageChange
+
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APP}
+      labels:
+        app: ${APP}
+    spec:
+      ports:
+        - port: ${{PORT}}
+          name: web
+          protocol: TCP
+      clusterIP: None
+      selector:
+        app: ${APP}
+
+parameters:
+  - name: APP
+    displayName: myproject APP Name
+    description: APP Docker Name
+    required: true
+  - name: TAG
+    displayName: TAG Name
+    description: TAG Docker Name
+    required: true
+  - name: PORT
+    displayName: PORT Number
+    description: Service Port Number
+    required: true

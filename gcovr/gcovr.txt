@@ -1,0 +1,30 @@
+------------------------------------------------------------------------------
+                           GCC Code Coverage Report
+Directory: .
+------------------------------------------------------------------------------
+File                                       Lines    Exec  Cover   Missing
+------------------------------------------------------------------------------
+bdpm/bch1557.c                                41      41   100%
+bdpm/bch252.c                                 63      63   100%
+bdpm/crc16.c                                  15      15   100%
+bdpm/ge-stacis-bdpm-replay-wbd2400.c         138     138   100%
+bdpm/ge-stacis-bdpm-rx-wbd2400.c             129     129   100%
+bdpm/ge-stacis-bdpm-tx-wbd2400.c              96      96   100%
+bdpm/stacis-bdpm-ringbuffer.c                 82      82   100%
+bdpm/stacis-bdpm-rx-common.c                  37      37   100%
+bdpm/stacis-bdpm-rx-nb.c                     130     130   100%
+bdpm/stacis-bdpm-rx.c                        213     201    94%   116,118,123,129,143-145,147,295,388,609,615
+bdpm/stacis-bdpm-tx-common.c                  42      42   100%
+bdpm/stacis-bdpm-tx-nb.c                      68      68   100%
+bdpm/stacis-bdpm-tx.c                        136     136   100%
+inc/platform/arch_32_bit/std_platform.h       11      11   100%
+rdpm/ge-stacis-rdpm-rx-wbd2400.c              42      42   100%
+rdpm/ge-stacis-rdpm-tx-wbd2400.c              36      36   100%
+rdpm/stacis-rdpm-rx-nb.c                      42      42   100%
+rdpm/stacis-rdpm-rx.c                         90      90   100%
+rdpm/stacis-rdpm-tx-common.c                  28      28   100%
+rdpm/stacis-rdpm-tx-nb.c                      61      61   100%
+rdpm/stacis-rdpm-tx.c                         78      78   100%
+------------------------------------------------------------------------------
+TOTAL                                       1578    1566    99%
+------------------------------------------------------------------------------

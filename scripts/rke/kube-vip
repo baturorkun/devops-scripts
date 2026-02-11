@@ -1,0 +1,15 @@
+kubectl apply -f https://kube-vip.io/manifests/rbac.yaml
+
+
+https://kube-vip.io/control-plane/#k3s
+
+
+https://kube-vip.io/hybrid/daemonset/
+
+https://kube-vip.io/k3s
+
+
+https://infohub.delltechnologies.com/l/suse-rancher-and-rke2-kubernetes-cluster-in-apex-private-cloud-services/steps-to-install-rke2-cluster-three-nodes-manually
+
+
+https://gist.github.com/bgulla/7a6a72bdc5df6febb1e22dbc32f0ca4f

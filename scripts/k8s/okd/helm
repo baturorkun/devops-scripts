@@ -1,0 +1,37 @@
+helm repo add bitnami  https://charts.bitnami.com/bitnami
+
+helm search repo nginx
+
+helm install my-nginx bitnami/nginx --set service.type=ClusterIP
+
+helm ls
+
+oc expose svc/my-nginx
+
+oc get routes
+
+
+helm uninstall my-nginx
+
+oc delete route my-nginx
+
+
+
+helm install  my-timescaledb timescaledb/timescaledb-multinode \
+--set credentials.accessNode.superuser="admin" \
+--set credentials.dataNode.superuser="admin"
+
+
+
+
+
+Examples:
+
+
+https://www.feval.ca/posts/k8s-static/
+
+https://kubeapps.com/
+
+https://praveenperera.com/blog/install-timescale-2-0-on-kubernetes
+
+

@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: cit
+  name: cit
+spec:
+  #host: cit-batur.apps.ocp.mydomain.com
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+  to:
+    kind: Service
+    name: cit
+    weight: 100
+  wildcardPolicy: None

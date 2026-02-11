@@ -1,0 +1,1 @@
+microk8s-snap.zip filter=lfs diff=lfs merge=lfs -text

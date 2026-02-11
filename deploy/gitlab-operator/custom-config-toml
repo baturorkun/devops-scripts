@@ -1,0 +1,16 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: custom-config-toml
+  namespace: gitlab-runner
+data:
+  config.toml: |
+    [[runners]]
+      executor = "kubernetes"
+      [runners.kubernetes]
+         cpu_limit = "2"
+         memory_limit = "2Gi"
+         service_cpu_limit = "2"
+         service_memory_limit = "2Gi"
+         privileged = true
+

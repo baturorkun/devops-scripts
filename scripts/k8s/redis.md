@@ -1,0 +1,1 @@
+https://reachmnadeem.wordpress.com/2020/10/01/redis-ha-master-slave-cluster-up-and-running-in-openshift-okd-kubernetes/

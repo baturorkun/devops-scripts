@@ -1,0 +1,44 @@
+# DeploymentConfig from ImageStream myimage-ref-source
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: mynginx
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mynginx
+    spec:
+      containers:
+      - image: public.ecr.aws/y6a3u3z2/mynginx:latest
+        imagePullPolicy: Always
+        name: mycontainer
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - mycontainer
+      from:
+        kind: ImageStreamTag
+        name: mynginx:mytag
+    type: ImageChange
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mynginx
+  labels:
+    app: mynginx
+spec:
+  ports:
+    - port: 8080
+      name: web
+  clusterIP: None
+  selector:
+    app: mynginx
+
+
+
+    image-registry-storage

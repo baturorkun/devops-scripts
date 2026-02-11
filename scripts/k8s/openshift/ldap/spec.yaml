@@ -1,0 +1,19 @@
+spec:
+  identityProviders:
+    - ldap:
+        attributes:
+          id:
+            - cn
+          name:
+            - cn
+          preferredUsername:
+            - cn
+        bindDN: 'cn=admin,dc=local'
+        bindPassword:
+          name: ldap-bind-password-nb77n
+        insecure: true
+        url: >-
+          ldap://192.168.2.32:389/ou=Personel,ou=Org,ou=Intranet,ou=Users,dc=local?cn
+      mappingMethod: claim
+      name: ldap
+      type: LDAP

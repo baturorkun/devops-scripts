@@ -1,0 +1,19 @@
+spec:
+  identityProviders:
+    - ldap:
+        attributes:
+          id:
+            - cn
+          name:
+            - cn
+          preferredUsername:
+            - sAMAccountName
+        bindDN: "cn=LDAP Viewer,cn=Managed Service Accounts,dc=local,dc=net"
+        bindPassword:
+          name: ldap-secret
+        insecure: true
+        url: >-
+          ldap://dc1.mydomain.com/cn=rocketchat,ou=RocketChat,ou=Groups,dc=local,dc=net
+      mappingMethod: claim
+      name: ldap
+      type: LDAP

@@ -1,0 +1,14 @@
+
+- name: KAFKA_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka-service:29092,PLAINTEXT_HOST://kafka-service-batur.apps.ocp.mydomain.com:9092"
+            - name: KAFKA_INTER_BROKER_LISTENER_NAME
+              value: PLAINTEXT
+
+
+kubectl run kafka-consumer -it --image=banzaicloud/kafka:2.13-2.4.0 --rm=true --restart=Never -- /opt/kafka/bin/kafka-console-consumer.sh --broker-list kafka-service:9092 --topic --topic sample.topic --from-beginning
+
+
+kubectl run kafka-producer -it --image=banzaicloud/kafka:2.13-2.4.0 --rm=true --restart=Never -- /opt/kafka/bin/kafka-console-producer.sh --broker-list kafka-service:9092 --topic sample.topic
+
+
+kubectl run kafta-test -it --image=confluentinc/cp-kafkacat --rm -- sh

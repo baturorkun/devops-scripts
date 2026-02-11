@@ -1,0 +1,50 @@
+kind: Template
+apiVersion: v1
+metadata:
+  name: my-template
+objects:
+  - kind: DeploymentConfig
+    apiVersion: apps.openshift.io/v1
+    metadata:
+      name: ${APP}
+    spec:
+      replicas: 2
+      template:
+        metadata:
+          labels:
+            app: ${APP}
+        spec:
+          containers:
+          - image: nexus.mydomain.com/${APP}
+            imagePullPolicy: Always
+            name: ${APP}
+      triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+          - ${APP}
+          from:
+            kind: ImageStreamTag
+            name: ${APP}:latest
+        type: ImageChange
+
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      name: ${APP}
+      labels:
+        app: ${APP}
+    spec:
+      ports:
+        - port: 8080
+          name: web
+      clusterIP: None
+      selector:
+        app: ${APP}
+
+parameters:
+  - name: APP
+    displayName: myproject APP Name
+    description: APP Docker Name
+    required: true

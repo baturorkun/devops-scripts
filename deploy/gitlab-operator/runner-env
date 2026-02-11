@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: runner-env
+  namespace: gitlab-runner
+data:
+  daemon.json: |-
+    {
+    "registry-mirrors": [
+      "http://192.168.2.215:9083",
+      "http://ftp.mycompany.com.tr:8082"
+    ],
+    "insecure-registries": [
+      "192.168.2.215:9082",
+      "lg-uygmnexus.mycompany.com.tr:8082"
+    ]
+    }

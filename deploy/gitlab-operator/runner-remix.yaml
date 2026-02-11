@@ -1,0 +1,20 @@
+apiVersion: apps.gitlab.com/v1beta2
+kind: Runner
+metadata:
+  finalizers:
+    - finalizer.gitlab.com
+  name: myproject
+  namespace: gitlab-runners
+spec:
+  config: custom-config-toml
+  env: runner-env
+  buildImage: nexus.mydomain.com/mysoft/myproject-builder-k8s
+  imagePullPolicy: Always
+  gitlabUrl: 'https://gitlab.mydomain.com'
+  concurrent: 25
+  serviceaccount: gitlab-runner-sa
+  tags: 'myproject,build,backend,frontend,e2e,test'
+  token: gitlab-runner-secret-myproject
+status:
+  phase: Running
+  registration: succeeded

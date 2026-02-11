@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: route-nexus
+spec:
+  port:
+    targetPort: 8083
+  #host: www.example.com
+  #path: "/test/*"
+  to:
+    kind: Service
+    name: nexus3

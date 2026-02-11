@@ -1,0 +1,29 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-using-nfs
+spec:
+  securityContext:
+    privileged: true
+  # Add the server as an NFS volume for the pod
+  volumes:
+    - name: nfs-volume
+      nfs:
+        # URL for the NFS server
+        server: 192.168.10.50
+        path: /
+
+  # In this container, we'll mount the NFS volume
+  # and write the date to a file inside it.
+  containers:
+    - name: app
+      image: d3fk/nfs-client
+
+      # Mount the NFS volume in the container
+      volumeMounts:
+        - name: nfs-volume
+          mountPath: /var/nfs
+
+      # Write to a file inside our NFS
+      command: ["/bin/sh"]
+      args: ["-c", "while true; do date >> /var/nfs/dates.txt; sleep 5; done"]

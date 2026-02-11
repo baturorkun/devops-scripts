@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: myweb
+  labels:
+      app: myweb
+spec:
+  selector:
+    matchLabels:
+      app: myweb
+  template:
+    metadata:
+      labels:
+         app: myweb
+    spec:
+      containers:
+        - name: myweb
+          image: nexus.mydomain.com/myweb:latest
+          ports:
+            - containerPort: 8080
+              name: "http-server"
+          volumeMounts:
+            - name: webroot
+              mountPath: /opt/app-root/src/
+  volumeClaimTemplates:
+    - metadata:
+        name: webroot
+      spec:
+          accessModes: [ "ReadWriteOnce" ]
+          storageClassName: "ovirt-csi-sc"
+          resources:
+            requests:
+              storage: 2Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myweb
+  labels:
+    app: myweb
+spec:
+  ports:
+    - port: 8080
+      name: web
+  clusterIP: None
+  selector:
+    app: myweb

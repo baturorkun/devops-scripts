@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nexus
+  namespace: nexus
+  labels:
+    app: nexus
+    group: service
+spec:
+  replicas: 1
+  serviceName: nexus
+  selector:
+    matchLabels:
+      app: nexus
+  template:
+    metadata:
+      labels:
+        app: nexus
+        group: service
+    spec:
+      securityContext:
+        runAsUser: 200
+        runAsGroup: 2000
+        fsGroup: 2000
+      containers:
+        - name: nexus
+          image: 'sonatype/nexus3:3.25.0'
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+            - containerPort: 8123
+              protocol: TCP
+          volumeMounts:
+            - name: nexus-storage
+              mountPath: /nexus-data
+      volumes:
+        - name: nexus-storage
+          volumeClaimTemplates:
+            - metadata:
+                name: nexus-storage
+              spec:
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 2Gi

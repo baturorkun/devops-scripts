@@ -1,0 +1,6 @@
+subscription-manager register --username batur.orkun@mydomain.com --password XXXXXXX
+subscription-manager subscribe --pool=2c92808177da3d680177ef890bee23e3
+
+
+
+http://chrisj.cloud/?q=node/8

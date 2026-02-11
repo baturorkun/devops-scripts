@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pgadmin
+  labels:
+    app: pgadmin
+spec:
+  containers:
+    - name: pgadmin
+      image: dpage/pgadmin4
+      env:
+        - name: PGADMIN_DEFAULT_EMAIL
+          value: "pgadmin@rmx.rmx"
+        - name: PGADMIN_DEFAULT_PASSWORD
+          value: "94509450"
+      imagePullPolicy: IfNotPresent
+  restartPolicy: Always

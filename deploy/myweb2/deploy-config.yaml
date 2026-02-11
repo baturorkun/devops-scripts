@@ -1,0 +1,39 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: myweb2
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: myweb2
+    spec:
+      containers:
+      - image: nexus.mydomain.com/myweb2
+        imagePullPolicy: Always
+        name: myweb2
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - myweb2
+      from:
+        kind: ImageStreamTag
+        name: myweb2:latest
+    type: ImageChange
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myweb2
+  labels:
+    app: myweb2
+spec:
+  ports:
+    - port: 8080
+      name: web
+  clusterIP: None
+  selector:
+    app: myweb2

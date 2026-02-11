@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfs-server
+  template:
+    metadata:
+      labels:
+        app: nfs-server
+    spec:
+      securityContext:
+        privileged: true
+        capabilities:
+          add: [ "SYS_ADMIN", "SETPCAP" ]
+      containers:
+        - name: nfs-server
+          image: itsthenetwork/nfs-server-alpine:12
+          env:
+           - name: SHARED_DIRECTORY
+             value: /data
+          volumeMounts:
+            - name: nfs-storage
+              mountPath: /data/nfs-storage
+          ports:
+            - name: nfs
+              containerPort: 2049
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: nfs-server-data
